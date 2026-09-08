@@ -56,6 +56,45 @@
             content: "🛍️";
             font-size: 2rem;
         }
+        /* CSS */
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 30px;
+  padding: 5px 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 30px;
+}
+
+.search-btn {
+  background: linear-gradient(135deg, #d4d7e7, #e1d5ed);
+  border: none;
+  font-size: 1.2rem;
+  color: rgb(128, 131, 245);
+  padding: 10px 15px;
+  border-radius:43%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.search-btn:hover {
+  transform: scale(1.1);
+}
+
+
 
         nav ul {
             display: flex;
@@ -313,7 +352,7 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 468px) {
+        @media (max-width: 390px) {
             .header-container {
                 padding: 1rem;
             }
@@ -379,6 +418,12 @@
     <header>
         <div class="header-container">
             <div class="logo">ShopClues</div>
+            <!-- HTML -->
+        <div class="search-container">
+            <input type="text" placeholder="Search products..." class="search-input">
+            <button class="search-btn">Search</Search></button>
+        </div>
+
             <nav>
                 <ul>
                     <li><a href="#">Home</a></li>
