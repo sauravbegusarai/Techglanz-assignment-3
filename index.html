@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopClues - Your Shopping Destination</title>
+    
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family:  Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+    
+        header {
+            background: linear-gradient(135deg, #667eea 50%, #764ba2 100%);
+            color: white;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🛍️";
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-btn {
+            background: white;
+            color: #667eea;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Products Section */
+        .products-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #333;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            font-size: 0.85rem;
+            color: #667eea;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+            min-height: 2.2rem;
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .price-original {
+            font-size: 0.9rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 0.5rem;
+        }
+
+        .discount-badge {
+            background: #ff6b6b;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .product-image-container {
+            position: relative;
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.7rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .add-to-cart-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Rating */
+        .product-rating {
+            color: #ffc107;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .product-image {
+                height: 200px;
+                font-size: 3rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+       
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">ShopClues</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="cart-icon">🛒  🔔  🩷 📍Location </div>
+
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Welcome to ShopClues</h1>
+        <p>Discover amazing products at unbeatable prices</p>
+        <button class="hero-btn">Shop Now</button>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Products Section -->
+        <section class="products-section" id="products">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-image"><img src="images.jpg" alt="tshirt" height="300vh" width="400vh"></div>
+                        
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Fashion</span>
+                        <h3 class="product-name">Premium Cotton T-Shirt</h3>
+                        <p class="product-description">High-quality cotton fabric with comfortable fit</p>
+                        <div class="product-rating">⭐⭐⭐⭐⭐ (245 reviews)</div>
+                        <div class="product-footer">
+                            <div>
+                                <span class="product-price">224.99</span>
+                                <span class="price-original">311.99</span>
+                            </div>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-image"><img src="4534550117.jpg" alt="footwear" height="300vh" width="400vh"></div>
+                        
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Footwear</span>
+                        <h3 class="product-name">Casual Sports Shoes</h3>
+                        <p class="product-description">Lightweight and durable running shoes</p>
+                        <div class="product-rating">⭐⭐⭐⭐ (189 reviews)</div>
+                        <div class="product-footer">
+                            <div>
+                                <span class="product-price">554.99</span>
+                                <span class="price-original">664.99</span>
+                            </div>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-image"><img src="images (1).jpg" alt="smart watch" height="300vh" width="400vh"></div>
+                        
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Accessories</span>
+                        <h3 class="product-name">Smart Digital Watch</h3>
+                        <p class="product-description">Fitness tracking with heart rate monitor</p>
+                        <div class="product-rating">⭐⭐⭐⭐⭐ (312 reviews)</div>
+                        <div class="product-footer">
+                            <div>
+                                <span class="product-price">889.99</span>
+                                <span class="price-original">1129.99</span>
+                            </div>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-image"><img src="images (2).jpg" alt="ear buds" height="300vh" width="400vh"></div>
+                        
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Electronics</span>
+                        <h3 class="product-name">Wireless Earbuds Pro</h3>
+                        <p class="product-description">Premium sound with noise cancellation</p>
+                        <div class="product-rating">⭐⭐⭐⭐⭐ (428 reviews)</div>
+                        <div class="product-footer">
+                            <div>
+                                <span class="product-price">479.99</span>
+                                <span class="price-original">2106.99</span>
+                            </div>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-image"><img src="images (3).jpg" alt="leather bags" height="300vh" width="400vh"></div>
+                        
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Fashion</span>
+                        <h3 class="product-name">Designer Leather Bag</h3>
+                        <p class="product-description">Elegant and spacious travel companion</p>
+                        <div class="product-rating">⭐⭐⭐⭐ (156 reviews)</div>
+                        <div class="product-footer">
+                            <div>
+                                <span class="product-price">664.99</span>
+                                <span class="price-original">999.99</span>
+                            </div>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <div class="product-image"><img src="images (4).jpg" alt="headphones" height="250vh" width="400vh"></div>
+                        
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Electronics</span>
+                        <h3 class="product-name">Premium Headphones</h3>
+                        <p class="product-description">Studio-quality sound with active noise control</p>
+                        <div class="product-rating">⭐⭐⭐⭐⭐ (567 reviews)</div>
+                        <div class="product-footer">
+                            <div>
+                                <span class="product-price">1119.99</span>
+                                <span class="price-original">2199.99</span>
+                            </div>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <h2>Popular on ShopClues</h2>
+    <p "style="color:slategrey;">Offers & Coupons| Couple Watches| Gas Stoves| Air Coolers| Air Purifiers| Headphones / Mic / Headset| Pressure Cookers| Sandwich Makers| Air Friers / Deep Friers| Irons| LED TV| Men Jackets| Educational Toys| Stabilizers| Heaters| Car Audio Systems| Photo Frames| Men's Shoes| Decorative Lights| Rain Wear| Bedsheets| Top Brands</p>
+
+    
+</body>
+</html>
